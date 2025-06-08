@@ -22,10 +22,12 @@ import java.util.Scanner;
 public class GameWindow extends JFrame
 {
     int wSize;
+    DrawCanvas dc;
     
-    public GameWindow(int windowSize)
+    public GameWindow(int windowSize, DrawCanvas DrawCanvas)
     {
         wSize = windowSize;
+        dc = DrawCanvas;
     }
     
     //creates window for the game
@@ -35,7 +37,7 @@ public class GameWindow extends JFrame
         setTitle("temp");
         
         // draws the canvas with the window size
-        DrawCanvas dc = new DrawCanvas(wSize,wSize);
+        //DrawCanvas dc = new DrawCanvas(wSize,wSize);
         
         //makes the window
         this.getContentPane().setPreferredSize(new Dimension(wSize,wSize));

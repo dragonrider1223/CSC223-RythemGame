@@ -10,20 +10,22 @@ import java.util.TimerTask;
 public class GameLoop
 {
     int windowSize = 800;
-    GameWindow GameWindow=new GameWindow(windowSize);
+    
     DrawCanvas dc = new DrawCanvas(windowSize,windowSize);
+    GameWindow GameWindow=new GameWindow(windowSize,dc);
         
     public GameLoop()
     {
         // initially creat the window
         GameWindow.createGameWindow();
         
+        
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run () {
-                dc.RedrawCanvas();
+               dc.RedrawCanvas();
             }
         }, 0, 16);
     }
