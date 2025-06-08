@@ -5,29 +5,30 @@
  * @Joshua wolf
  * @version 1
  */
+import java.awt.*;
+import java.awt.geom.*;
+
 public class Note
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class Note
-     */
-    public Note()
+    private double x;
+    private double y;
+    private double width;
+    private double height;
+    private Color color;
+    
+    public Note(double x,double y,double width,double height,Color color)
     {
-        // initialise instance variables
-        x = 0;
+               this.x = x;
+               this.y = y;
+               this.width = width;
+               this.height = height;
+               this.color = color;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
+    public void drawNote(Graphics2D g2d)
     {
-        // put your code here
-        return x + y;
+        Ellipse2D.Double ellipse = new Ellipse2D.Double(x,y,width,height);
+        g2d.setColor(color);
+        g2d.fill(ellipse);
     }
 }

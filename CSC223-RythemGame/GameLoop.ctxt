@@ -1,4 +1,6 @@
 #BlueJ class context
 comment0.target=GameLoop
 comment0.text=\r\n\ Creates\ a\ new\ window\ for\ the\ game\r\n\r\n\ @Joshua\ wolf\r\n\ @version\ 1\r\n
-numComments=1
+comment1.params=
+comment1.target=GameLoop()
+numComments=2

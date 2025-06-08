@@ -7,5 +7,11 @@
  */
 public class GameLoop
 {
+    GameWindow GameWindow=new GameWindow();
     
+    public GameLoop()
+    {
+        // initially creat the window
+        GameWindow.createGameWindow();
+    }
 }

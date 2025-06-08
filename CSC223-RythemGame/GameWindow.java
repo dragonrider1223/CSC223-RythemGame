@@ -23,16 +23,21 @@ public class GameWindow extends JFrame
     //sets windowsize
     int wSize = 800;
     
+    DrawCanvas dc = new DrawCanvas(wSize,wSize);
+    
     //creates window for the game
-    public GameWindow()
+    public void createGameWindow()
     {
         //sets window name
         setTitle("temp");
         
         //makes the window
         this.getContentPane().setPreferredSize(new Dimension(wSize,wSize));
+        this.setResizable(false);
         this.toFront();
         this.setVisible(true);
+        
+        this.add(dc);
         
         //pack this
         this.pack();
