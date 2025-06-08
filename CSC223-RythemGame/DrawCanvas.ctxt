@@ -4,4 +4,6 @@ comment1.params=w\ h
 comment1.target=DrawCanvas(int,\ int)
 comment2.params=g
 comment2.target=void\ paintComponent(java.awt.Graphics)
-numComments=3
+comment3.params=
+comment3.target=void\ RedrawCanvas()
+numComments=4

@@ -18,11 +18,11 @@ public class Note
     
     public Note(double x,double y,double width,double height,Color color)
     {
-               this.x = x;
-               this.y = y;
-               this.width = width;
-               this.height = height;
-               this.color = color;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
     }
 
     public void drawNote(Graphics2D g2d)

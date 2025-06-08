@@ -18,18 +18,24 @@ import javax.swing.JButton;
 
 import java.util.Scanner;
 
+
 public class GameWindow extends JFrame
 {
-    //sets windowsize
-    int wSize = 800;
+    int wSize;
     
-    DrawCanvas dc = new DrawCanvas(wSize,wSize);
+    public GameWindow(int windowSize)
+    {
+        wSize = windowSize;
+    }
     
     //creates window for the game
     public void createGameWindow()
     {
         //sets window name
         setTitle("temp");
+        
+        // draws the canvas with the window size
+        DrawCanvas dc = new DrawCanvas(wSize,wSize);
         
         //makes the window
         this.getContentPane().setPreferredSize(new Dimension(wSize,wSize));
@@ -45,5 +51,5 @@ public class GameWindow extends JFrame
         //end on close
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
+    
 }
