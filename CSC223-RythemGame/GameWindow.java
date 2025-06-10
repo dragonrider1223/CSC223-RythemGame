@@ -16,18 +16,20 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
-import java.util.Scanner;
 
 
-public class GameWindow extends JFrame
+
+public class GameWindow extends JFrame 
 {
     int wSize;
     DrawCanvas dc;
+    Player player;
     
-    public GameWindow(int windowSize, DrawCanvas DrawCanvas)
+    public GameWindow(int windowSize, DrawCanvas DrawCanvas, Player thePlayer)
     {
         wSize = windowSize;
         dc = DrawCanvas;
+        player  = thePlayer;
     }
     
     //creates window for the game
@@ -45,6 +47,7 @@ public class GameWindow extends JFrame
         this.toFront();
         this.setVisible(true);
         
+        //this.addKeyListener(player);
         this.add(dc);
         
         //pack this
@@ -53,5 +56,7 @@ public class GameWindow extends JFrame
         //end on close
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+    
+
     
 }

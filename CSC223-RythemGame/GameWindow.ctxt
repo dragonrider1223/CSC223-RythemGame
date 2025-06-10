@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=GameWindow
-comment1.params=windowSize\ DrawCanvas
-comment1.target=GameWindow(int,\ DrawCanvas)
+comment1.params=windowSize\ DrawCanvas\ thePlayer
+comment1.target=GameWindow(int,\ DrawCanvas,\ Player)
 comment2.params=
 comment2.target=void\ createGameWindow()
 numComments=3

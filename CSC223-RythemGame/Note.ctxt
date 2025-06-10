@@ -1,7 +1,9 @@
 #BlueJ class context
 comment0.target=Note
-comment1.params=x\ y\ width\ height\ color
-comment1.target=Note(double,\ double,\ double,\ double,\ java.awt.Color)
+comment1.params=speed\ x\ y\ color\ windowHeight\ list
+comment1.target=Note(double,\ double,\ double,\ java.awt.Color,\ double,\ java.util.ArrayList)
 comment2.params=g2d
 comment2.target=void\ drawNote(java.awt.Graphics2D)
-numComments=3
+comment3.params=
+comment3.target=void\ removeNote()
+numComments=4
