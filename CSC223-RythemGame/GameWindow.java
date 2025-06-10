@@ -3,7 +3,7 @@
  * Creates a new window for the game
  *
  * @Joshua wolf
- * @version 1
+ * @version 1.2
  */
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class GameWindow extends JFrame
     public void createGameWindow()
     {
         //sets window name
-        setTitle("temp");
+        setTitle("Music game");
         
         // draws the canvas with the window size
         //DrawCanvas dc = new DrawCanvas(wSize,wSize);
@@ -47,7 +47,7 @@ public class GameWindow extends JFrame
         this.toFront();
         this.setVisible(true);
         
-        //this.addKeyListener(player);
+        this.addKeyListener(player);
         this.add(dc);
         
         //pack this

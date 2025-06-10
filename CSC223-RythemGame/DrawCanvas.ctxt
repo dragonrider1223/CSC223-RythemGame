@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=DrawCanvas
-comment1.params=w\ h
-comment1.target=DrawCanvas(int,\ int)
+comment1.params=w\ h\ playerh\ playero
+comment1.target=DrawCanvas(int,\ int,\ double,\ double)
 comment2.params=
 comment2.target=void\ AddNote()
 comment3.params=g
@@ -10,4 +10,6 @@ comment4.params=
 comment4.target=void\ RedrawCanvas()
 comment5.params=
 comment5.target=void\ checkNotes()
-numComments=6
+comment6.params=scoreChange
+comment6.target=void\ changeScore(int)
+numComments=7

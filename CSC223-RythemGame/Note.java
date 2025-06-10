@@ -1,9 +1,9 @@
 
 /**
- * Creates a new window for the game
+ * creates and destroys note that moves down at a constant rate
  *
  * @Joshua wolf
- * @version 1.1
+ * @version 1.2
  */
 import java.awt.*;
 import java.awt.geom.*;
@@ -14,7 +14,7 @@ public class Note
     public double x;
     public double y;
     private double width = 200;
-    private double height = 100;
+    private double height;
     private Color color;
 
     private double displacementIncrease;
@@ -22,26 +22,31 @@ public class Note
     private double deathDistance;
     
     private ArrayList noteList;
+    DrawCanvas dc;
     
-    public Note(double speed,double x,double y,Color color,double windowHeight, ArrayList list)
+    public Note(double speed,double x,double y,double height,Color color,double windowHeight, ArrayList list, DrawCanvas drawCanvas)
     {
         this.x = x-width/2;
         this.y = y-height;
+        this.height = height;
         this.color = color;
         this.displacementIncrease = speed;
-        this.deathDistance = windowHeight;
+        this.deathDistance = windowHeight+200;//increase this by 200 to prevent flashing of the other notes
         this.noteList = list;
+        this.dc = drawCanvas;
     }
 
     public void drawNote(Graphics2D g2d)
     {
-        Ellipse2D.Double ellipse = new Ellipse2D.Double(x,y+=displacementIncrease,width,height);
+        Rectangle2D.Double note = new Rectangle2D.Double(x,y+=displacementIncrease,width,height);
         g2d.setColor(color);
-        g2d.fill(ellipse);
+        g2d.fill(note);
         
         if(this.y>deathDistance)
+        {
+            dc.changeScore(-100);
             removeNote();
-        
+        }
 
     }
     
