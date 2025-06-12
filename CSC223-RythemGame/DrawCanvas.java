@@ -16,6 +16,9 @@ public class DrawCanvas extends JPanel
     private Note note;
     private ArrayList<Note> noteList = new ArrayList<Note>();
     
+    private TimingPopup popup;
+    private ArrayList<TimingPopup> popupList = new ArrayList<TimingPopup>();
+    
     private double displacementIncrease;
     
     private double playerHeight;
@@ -24,6 +27,8 @@ public class DrawCanvas extends JPanel
     private double noteHeight = 100;
     
     private int score;
+    
+    Font myFont = new Font("Arial", Font.BOLD, 100);
     
     public DrawCanvas(int w, int h,double playerh,double playero){
         width = w;
@@ -61,9 +66,13 @@ public class DrawCanvas extends JPanel
         for(int i=0;i<noteList.size();i++){
             noteList.get(i).drawNote(g2d);
         }
+        for(int i=0;i<popupList.size();i++){
+            popupList.get(i).drawPopup(g2d);
+        }
         
+        g2d.setFont(myFont);
         g2d.setColor(Color.GREEN);
-        g2d.drawString(Integer.toString(score),10, 10);       
+        g2d.drawString("Score: "+Integer.toString(score),10, 100);       
         
     }
     
@@ -80,16 +89,22 @@ public class DrawCanvas extends JPanel
             {
                 System.out.println("perfect");
                 changeScore(100);
+                popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.YELLOW,width,popupList,"perfect",this);
+                popupList.add(popup);
                 noteList.get(i).removeNote();
             }else if(noteList.get(i).y>height-playerHeight-playerOffset&&noteList.get(i).y<height-playerOffset)
             {
                 System.out.println("late");
                 changeScore(50);
+                popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.ORANGE,width,popupList,"late",this);
+                popupList.add(popup);
                 noteList.get(i).removeNote();
             }else if(noteList.get(i).y+noteHeight>height-playerHeight-playerOffset&&noteList.get(i).y+noteHeight<height-playerOffset)
             {
                 System.out.println("early");
                 changeScore(50);
+                popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.ORANGE,width,popupList,"early",this);
+                popupList.add(popup);
                 noteList.get(i).removeNote();
             }
         }
@@ -102,7 +117,15 @@ public class DrawCanvas extends JPanel
     
     public void changeScore(int scoreChange)
     {
-        score+=scoreChange;
+        if (score+scoreChange>=0)
+            score+=scoreChange;
+        else
+            score=0;
+        if(scoreChange<0)
+        {
+            popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.RED,width,popupList,"miss",this);
+            popupList.add(popup);
+        }
         System.out.println(score);
     }
 }

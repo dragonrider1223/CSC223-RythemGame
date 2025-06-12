@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=TimingPopup
+comment1.params=x\ y\ color\ windowWidth\ list\ text\ drawCanvas
+comment1.target=TimingPopup(double,\ double,\ java.awt.Color,\ double,\ java.util.ArrayList,\ java.lang.String,\ DrawCanvas)
+comment2.params=g2d
+comment2.target=void\ drawPopup(java.awt.Graphics2D)
+comment3.params=
+comment3.target=void\ removePopup()
+numComments=4

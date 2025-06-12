@@ -52,7 +52,7 @@ public class GameLoop
             @Override
             public void run () {
                 dc.RedrawCanvas();
-            } 
+            }
         }, 0, 16);
         
         NoteSpawnTimer();

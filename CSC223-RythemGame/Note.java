@@ -26,12 +26,12 @@ public class Note
     
     public Note(double speed,double x,double y,double height,Color color,double windowHeight, ArrayList list, DrawCanvas drawCanvas)
     {
-        this.x = x-width/2;
+        this.x = 25+Math.random()*((windowHeight-width)-25);// the -25 and +25 are for the offset from either edge
         this.y = y-height;
         this.height = height;
         this.color = color;
         this.displacementIncrease = speed;
-        this.deathDistance = windowHeight+200;//increase this by 200 to prevent flashing of the other notes
+        this.deathDistance = windowHeight+height*2;//increase this by height*2 to prevent flashing of the other notes
         this.noteList = list;
         this.dc = drawCanvas;
     }
