@@ -27,15 +27,52 @@ public class GameLoop
     private int noteIndex;
     private ArrayList<Integer> noteList= new ArrayList<Integer>() ;
     
-    private String filePath = "test.txt";
+    private ArrayList<String> fileList = new ArrayList<String>();
+    private String filePath = "SongTextFiles/";
+    private String fileName;
         
     public GameLoop()
     {
+        Scanner input = new Scanner(System.in);
+        
+        File folder = new File(filePath);
+        File[] files = folder.listFiles();
+        for(File file : files)
+        {
+            if(file.isFile() && file.getName().endsWith(".txt"))
+            {
+                fileList.add(file.getName());
+                System.out.println(file.getName());
+            }
+        }
+        boolean loop = true;
+        while(loop)
+        {
+            System.out.println("what song would you like to play?");
+            for(int i = 0;i<fileList.size();i++)
+            {
+                System.out.println((i+1)+". "+fileList.get(i));
+            }
+            String temp = input.nextLine();
+            int fileSelected = 0;
+            try{
+                fileSelected = Integer.parseInt(temp);
+            }catch(NumberFormatException e){
+                System.out.println("that is not an int");
+            }
+            
+            if(fileSelected>0&&fileSelected<fileList.size()+1)
+            {
+                fileName = fileList.get(fileSelected-1);
+                loop = false;
+            }else{System.out.println("Invalid input please try again");}
+            
+        }
         // initially creat the window
         GameWindow.createGameWindow();
         
         try {
-          File file = new File("test.txt");
+          File file = new File(filePath+"test.txt");
           Scanner myReader = new Scanner(file);
           while (myReader.hasNextLine()) {
               noteList.add(Integer.parseInt(myReader.nextLine()));
