@@ -72,7 +72,7 @@ public class GameLoop
         GameWindow.createGameWindow();
         
         try {
-          File file = new File(filePath+"test.txt");
+          File file = new File(filePath+fileName);
           Scanner myReader = new Scanner(file);
           while (myReader.hasNextLine()) {
               noteList.add(Integer.parseInt(myReader.nextLine()));
