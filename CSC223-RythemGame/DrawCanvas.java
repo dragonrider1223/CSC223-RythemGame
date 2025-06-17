@@ -24,7 +24,7 @@ public class DrawCanvas extends JPanel
     private double playerHeight;
     private double playerOffset;
     
-    private double noteHeight = 100;
+    private double noteHeight = 70;
     
     private int score;
     
@@ -40,7 +40,7 @@ public class DrawCanvas extends JPanel
     
     public void AddNote()
     {
-        note = new Note(displacementIncrease,width/2,-playerHeight-playerOffset,noteHeight,Color.BLACK,height,noteList,this);
+        note = new Note(displacementIncrease,width/2,-playerOffset,noteHeight,Color.BLACK,height,noteList,this);
         noteList.add(note);
     }
     

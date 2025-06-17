@@ -38,7 +38,7 @@ public class Note
 
     public void drawNote(Graphics2D g2d)
     {
-        Rectangle2D.Double note = new Rectangle2D.Double(x,y+=displacementIncrease,width,height);
+        Ellipse2D.Double note = new Ellipse2D.Double(x,y+=displacementIncrease,width,height);
         g2d.setColor(color);
         g2d.fill(note);
         
