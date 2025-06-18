@@ -15,7 +15,7 @@ public class MusicToTextFile
 {   
     String songPath = "Songs/";
 
-    int frameSize = 1024;
+    int frameSize = 1200;
     
     public void convertSong(String songName,String textFilePath) throws Exception
     {
@@ -33,8 +33,8 @@ public class MusicToTextFile
         int frameIndex = 0;
 
         double previosSampleEnergy = 0;
-        double energyThreshold = 1.5;
-        double energySensetivity = 0.00075;
+        double energyThreshold = 3.4;
+        double energySensetivity = 0.00092;
 
         new FileWriter(textFilePath+songName+".txt", false).close();
         try {
@@ -47,6 +47,8 @@ public class MusicToTextFile
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        int previosMsTime = 0;
         
         while ((bytesRead = audioInputStream.read(buffer))!=-1)
         {
@@ -61,7 +63,7 @@ public class MusicToTextFile
                 energy+= normalizedSample*normalizedSample;
             }
             energy = energy / (bytesRead / 2);
-
+            
             if (energy > previosSampleEnergy * energyThreshold && (energy - previosSampleEnergy) > energySensetivity) {
                 long timestampMs = (long) ((frameIndex * frameSize / bytesPerFrame) * 1000.0 / sampleRate)-previousTimeStamp;
                 if (timestampMs<1)
@@ -70,8 +72,14 @@ public class MusicToTextFile
                 //System.out.println("Likely beat detected at: " + timestampMs + " ms");
                 
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(textFilePath+songName+".txt", true))) {
-                    writer.write( String.valueOf(timestampMs));
-                    writer.newLine();
+                    if (timestampMs > 100)
+                    {
+                        writer.write( String.valueOf(timestampMs+previosMsTime));
+                        previosMsTime = 0;
+                        writer.newLine();
+                    }else
+                        previosMsTime += timestampMs;
+                    
                 } catch (IOException e) {}
             }
             previosSampleEnergy = energy;

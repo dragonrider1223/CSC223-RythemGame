@@ -44,6 +44,7 @@ public class GameLoop
         {
             converter.convertSong("metronome",filePath);
             converter.convertSong("AlienExtermination",filePath);
+            converter.convertSong("Toby Fox - Megalovania",filePath);
         }
         catch (Exception e)
         {
@@ -124,7 +125,7 @@ public class GameLoop
          File audioFile = new File(songFile);
         try
         {
-            Thread.sleep(1200);
+            Thread.sleep(1450);
         }
         catch (InterruptedException ie)
         {
@@ -162,7 +163,7 @@ public class GameLoop
                     if(noteIndex<noteList.size())
                         noteTimer = noteList.get(noteIndex);
                     timer.cancel();
-                    System.out.println("time until next note : "+noteTimer);
+                    //System.out.println("time until next note : "+noteTimer);
                     NoteSpawnTimer();
 
                 }

@@ -87,21 +87,21 @@ public class DrawCanvas extends JPanel
         for(int i=0;i<noteListSize;i++){
             if(noteList.get(i).y>height-playerHeight-playerOffset&&noteList.get(i).y+noteHeight<height-playerOffset)
             {
-                System.out.println("perfect");
+                //System.out.println("perfect");
                 changeScore(100);
                 popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.YELLOW,width,popupList,"perfect",this);
                 popupList.add(popup);
                 noteList.get(i).removeNote();
             }else if(noteList.get(i).y>height-playerHeight-playerOffset&&noteList.get(i).y<height-playerOffset)
             {
-                System.out.println("late");
+                //System.out.println("late");
                 changeScore(50);
                 popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.ORANGE,width,popupList,"late",this);
                 popupList.add(popup);
                 noteList.get(i).removeNote();
             }else if(noteList.get(i).y+noteHeight>height-playerHeight-playerOffset&&noteList.get(i).y+noteHeight<height-playerOffset)
             {
-                System.out.println("early");
+                //System.out.println("early");
                 changeScore(50);
                 popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.ORANGE,width,popupList,"early",this);
                 popupList.add(popup);
@@ -110,7 +110,7 @@ public class DrawCanvas extends JPanel
         }
         if(noteList.size()==noteListSize)
         {
-            System.out.println("miss");
+            //System.out.println("miss");
             changeScore(-100);
         }
     }
@@ -126,6 +126,6 @@ public class DrawCanvas extends JPanel
             popup = new TimingPopup(20,height-playerOffset-playerHeight,Color.RED,width,popupList,"miss",this);
             popupList.add(popup);
         }
-        System.out.println(score);
+        //System.out.println(score);
     }
 }
