@@ -45,6 +45,7 @@ public class GameLoop
             converter.convertSong("metronome",filePath);
             converter.convertSong("AlienExtermination",filePath);
             converter.convertSong("Toby Fox - Megalovania",filePath);
+            converter.convertSong("plin plin plon",filePath);
         }
         catch (Exception e)
         {
@@ -63,6 +64,7 @@ public class GameLoop
         }
         boolean loop = true;
         int fileSelected = 0;
+        
         while(loop)
         {
             System.out.println("what song would you like to play?");
@@ -125,7 +127,7 @@ public class GameLoop
          File audioFile = new File(songFile);
         try
         {
-            Thread.sleep(1450);
+            Thread.sleep(32*60);
         }
         catch (InterruptedException ie)
         {

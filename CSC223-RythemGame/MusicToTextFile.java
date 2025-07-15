@@ -15,7 +15,7 @@ public class MusicToTextFile
 {   
     String songPath = "Songs/";
 
-    int frameSize = 1200;
+    int frameSize = 512;
     
     public void convertSong(String songName,String textFilePath) throws Exception
     {
