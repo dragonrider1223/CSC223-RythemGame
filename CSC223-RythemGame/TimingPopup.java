@@ -16,9 +16,7 @@ public class TimingPopup
     private double fontSize = 100;
     private Color color;
 
-    private double displacementIncrease;
-    
-    private ArrayList popupList;
+    private double displacementIncrease;private ArrayList popupList;
     DrawCanvas dc;
     
     private String text;
@@ -28,32 +26,33 @@ public class TimingPopup
 
     Font myFont = new Font("Arial", Font.BOLD, 100);
     
-    public TimingPopup(double x,double y,Color color,double windowWidth, ArrayList list, String text,DrawCanvas drawCanvas)
+    public TimingPopup(double x,double y,Color color,double windowWidth, String text,DrawCanvas drawCanvas)
     {
+        System.out.println("create popup");
         this.x = x;
         this.y = y-50;
         this.color = color;
-        this.popupList = list;
         this.text = text;
         this.dc = drawCanvas;
     }
 
     public void drawPopup(Graphics2D g2d)
     {
-        g2d.setFont(myFont);
+        
         alpha-=alphaChange;
-        if(alpha >= 0)
+        if(alpha >= 0){
+            g2d.setFont(myFont);
             g2d.setColor(new Color(color.getRed(),color.getGreen(),color.getBlue(),alpha));
-        else{
-            g2d.setColor(new Color(color.getRed(),color.getGreen(),color.getBlue(),0));
-            removePopup();
+            g2d.drawString(text,(float)x,(float)y); 
         }
-        g2d.drawString(text,(float)x,(float)y);  
+        //g2d.drawString(text,(float)x,(float)y);  
 
     }
-    
-    public void removePopup()
+
+    public void changeText(String newText,Color newColor)
     {
-        popupList.remove(this);
+        alpha = 255;
+        this.text = newText;
+        this.color = newColor;
     }
 }

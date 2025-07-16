@@ -16,15 +16,18 @@ public class Note
     private double width = 200;
     private double height;
     private Color color;
-
+    
     private double displacementIncrease;
-    
+
     private double deathDistance;
-    
-    private ArrayList noteList;
+
+    private boolean isActive;
+
+    private ArrayList activeNoteList;
+    private ArrayList nonActiveNoteList;
     DrawCanvas dc;
-    
-    public Note(double speed,double x,double y,double height,Color color,double windowHeight, ArrayList list, DrawCanvas drawCanvas)
+
+    public Note(double speed,double x,double y,double height,Color color,double windowHeight, ArrayList list, ArrayList listNonActive, DrawCanvas drawCanvas,boolean isActive)
     {
         this.x = 25+Math.random()*((windowHeight-width)-25);// the -25 and +25 are for the offset from either edge
         this.y = y-height;
@@ -32,26 +35,38 @@ public class Note
         this.color = color;
         this.displacementIncrease = speed;
         this.deathDistance = windowHeight+height*2;//increase this by height*2 to prevent flashing of the other notes
-        this.noteList = list;
+        this.activeNoteList = list;
+        this.nonActiveNoteList = listNonActive;
         this.dc = drawCanvas;
+        this.isActive = isActive;
     }
 
     public void drawNote(Graphics2D g2d)
     {
-        Ellipse2D.Double note = new Ellipse2D.Double(x,y+=displacementIncrease,width,height);
-        g2d.setColor(color);
-        g2d.fill(note);
-        
-        if(this.y>deathDistance)
-        {
-            dc.changeScore(-100);
-            removeNote();
-        }
+        if(this.isActive){
+            Ellipse2D.Double note = new Ellipse2D.Double(x,y+=displacementIncrease,width,height);
+            g2d.setColor(color);
+            g2d.fill(note);
 
+            if(this.y>deathDistance)
+            {
+                dc.changeScore(-100);
+                activeNoteList.remove(this);
+                nonActiveNoteList.add(this);
+                removeNote();
+            }
+        }
     }
-    
+
     public void removeNote()
     {
-        noteList.remove(this);
+        isActive = false;
+        this.y=0-height;
+    }
+    
+    public void setActive()
+    {
+        isActive = true;
+        
     }
 }

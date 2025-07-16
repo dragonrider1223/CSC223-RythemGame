@@ -66,8 +66,6 @@ public class MusicToTextFile
             
             if (energy > previosSampleEnergy * energyThreshold && (energy - previosSampleEnergy) > energySensetivity) {
                 long timestampMs = (long) ((frameIndex * frameSize / bytesPerFrame) * 1000.0 / sampleRate)-previousTimeStamp;
-                if (timestampMs<1)
-                    timestampMs = 1;
                 previousTimeStamp += timestampMs;
                 //System.out.println("Likely beat detected at: " + timestampMs + " ms");
                 
