@@ -124,35 +124,37 @@ public class GameLoop
     }
     
     public void playSong(String songFile) throws java.io.IOException {
-         File audioFile = new File(songFile);
+        File audioFile = new File(songFile);
+        Clip song = loadSong(songFile);
+        if( song.isRunning() ) song.stop();
         try
         {
-            Thread.sleep(32*60);
+            Thread.sleep(120*16);
         }
         catch (InterruptedException ie)
         {
             ie.printStackTrace();
         }
-        try
-        {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-            try
-            {
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioStream);
-                clip.start();
-            }
-            catch (LineUnavailableException lue)
-            {
-                lue.printStackTrace();
-            }
-        }
-        catch (UnsupportedAudioFileException uafe)
-        {
-            uafe.printStackTrace();
-        }
+        song.setFramePosition( 0 );
+        song.start();
 
     }
+    
+    private Clip loadSong(String songFile)
+    {
+        Clip in = null;
+         try
+        {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream( getClass().getResource( songFile ) );
+            in = AudioSystem.getClip();
+            in.open( audioIn );
+        }catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+        return(in);
+    }
+    
 
     private void NoteSpawnTimer()
     {

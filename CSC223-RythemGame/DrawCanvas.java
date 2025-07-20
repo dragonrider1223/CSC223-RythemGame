@@ -14,7 +14,7 @@ public class DrawCanvas extends JPanel
     private int width;
     private int height;
     private Note note;
-    private double noteAmount=15;
+    private double noteAmount=25;
     private ArrayList<Note> activeNoteList = new ArrayList<Note>();
     private ArrayList<Note> nonActiveNoteList = new ArrayList<Note>();
 
