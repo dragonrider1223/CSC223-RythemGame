@@ -111,7 +111,6 @@ public class GameLoop
                 }
             }, 0, 16);
 
-        NoteSpawnTimer();
         
         try
         {
@@ -127,6 +126,8 @@ public class GameLoop
         File audioFile = new File(songFile);
         Clip song = loadSong(songFile);
         if( song.isRunning() ) song.stop();
+
+        NoteSpawnTimer();
         try
         {
             Thread.sleep(120*16);

@@ -33,9 +33,10 @@ public class DrawCanvas extends JPanel
     public DrawCanvas(int w, int h,double playerh,double playero){
         width = w;
         height = h;
-        displacementIncrease = height/120;
         playerHeight = playerh;
         playerOffset = playero;
+        
+        displacementIncrease = (h-playero-(playerh/2)+noteHeight)/120;
         for(int i = 0;i<noteAmount;i++)
         {
             note = new Note(displacementIncrease,width/2,-playerOffset,noteHeight,Color.BLACK,height,activeNoteList,nonActiveNoteList,this,false);
