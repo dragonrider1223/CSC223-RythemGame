@@ -30,6 +30,7 @@ public class GameLoop
     private int noteIndex;
     private ArrayList<Integer> noteList= new ArrayList<Integer>() ;
 
+    private ArrayList<String> songList = new ArrayList<String>();
     private ArrayList<String> fileList = new ArrayList<String>();
     private String filePath = "SongTextFiles/";
     private String fileName;
@@ -37,34 +38,57 @@ public class GameLoop
     public GameLoop()
     {
         Scanner input = new Scanner(System.in);
-        
+
         File songFolder = new File("Songs/");
         File[] songFiles = songFolder.listFiles();
-        try
+        for(File file : songFiles)
         {
-            converter.convertSong("metronome",filePath);
-            converter.convertSong("AlienExtermination",filePath);
-            converter.convertSong("Toby Fox - Megalovania",filePath);
-            converter.convertSong("plin plin plon",filePath);
+            if(file.isFile() && file.getName().endsWith(".wav"))
+            {
+                songList.add(file.getName());
+            }
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        
         File folder = new File(filePath);
         File[] files = folder.listFiles();
+        int fileNum = 0;
+        
         for(File file : files)
         {
             if(file.isFile() && file.getName().endsWith(".txt"))
             {
+                int fileToRemove = -1;
+                for(int i =0;i<songList.size();i++){
+                    if(songList.get(fileNum).replace(".wav","")!=file.getName().replace(".txt",""))
+                    {
+                        fileNum++;
+                        fileToRemove=i;
+                    }
+                    }
+                if (fileNum >= songList.size())
+                {
+                    if(fileToRemove>=0)
+                        songList.remove(fileToRemove);
+                }
+                fileToRemove = -1;
+                fileNum=0;
                 fileList.add(file.getName());
-                System.out.println(file.getName());
             }
         }
+        
+        for(int i = 0;i<songList.size();i++){
+            try
+            {
+                converter.convertSong(songList.get(i).replace(".wav",""),filePath);
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
         boolean loop = true;
         int fileSelected = 0;
-        
+
         while(loop)
         {
             System.out.println("what song would you like to play?");
@@ -111,7 +135,6 @@ public class GameLoop
                 }
             }, 0, 16);
 
-        
         try
         {
             playSong("Songs/"+fileName.replace(".txt",".wav"));
@@ -121,7 +144,7 @@ public class GameLoop
             ioe.printStackTrace();
         }
     }
-    
+
     public void playSong(String songFile) throws java.io.IOException {
         File audioFile = new File(songFile);
         Clip song = loadSong(songFile);
@@ -140,11 +163,11 @@ public class GameLoop
         song.start();
 
     }
-    
+
     private Clip loadSong(String songFile)
     {
         Clip in = null;
-         try
+        try
         {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream( getClass().getResource( songFile ) );
             in = AudioSystem.getClip();
@@ -155,7 +178,6 @@ public class GameLoop
         }
         return(in);
     }
-    
 
     private void NoteSpawnTimer()
     {
