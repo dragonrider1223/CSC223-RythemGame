@@ -18,7 +18,7 @@ import javax.sound.sampled.*;
 public class GameLoop
 {
     int windowSize = 800;
-    private double playerHeight = 150;
+    private double playerHeight = 100;
     private double playerOffset = 100;
 
     DrawCanvas dc = new DrawCanvas(windowSize,windowSize,playerHeight,playerOffset);
@@ -50,7 +50,6 @@ public class GameLoop
         }
         File folder = new File(filePath);
         File[] files = folder.listFiles();
-        int fileNum = 0;
         
         for(File file : files)
         {
@@ -58,19 +57,16 @@ public class GameLoop
             {
                 int fileToRemove = -1;
                 for(int i =0;i<songList.size();i++){
-                    if(songList.get(fileNum).replace(".wav","")!=file.getName().replace(".txt",""))
+                    if(songList.get(i).replace(".wav","").equals(file.getName().replace(".txt","")))
                     {
-                        fileNum++;
                         fileToRemove=i;
                     }
                     }
-                if (fileNum >= songList.size())
-                {
-                    if(fileToRemove>=0)
-                        songList.remove(fileToRemove);
-                }
+                
+                if(fileToRemove>=0)
+                    songList.remove(fileToRemove);
+                
                 fileToRemove = -1;
-                fileNum=0;
                 fileList.add(file.getName());
             }
         }
@@ -79,6 +75,7 @@ public class GameLoop
             try
             {
                 converter.convertSong(songList.get(i).replace(".wav",""),filePath);
+                fileList.add(songList.get(i).replace(".wav",".txt"));
             }
             catch (Exception e)
             {
@@ -92,9 +89,10 @@ public class GameLoop
         while(loop)
         {
             System.out.println("what song would you like to play?");
+            System.out.println();
             for(int i = 0;i<fileList.size();i++)
             {
-                System.out.println((i+1)+". "+fileList.get(i));
+                System.out.println((i+1)+". "+fileList.get(i).replace(".txt",""));
             }
             String temp = input.nextLine();
             fileSelected = 0;
@@ -153,7 +151,7 @@ public class GameLoop
         NoteSpawnTimer();
         try
         {
-            Thread.sleep(120*16);
+            Thread.sleep(128*16);
         }
         catch (InterruptedException ie)
         {

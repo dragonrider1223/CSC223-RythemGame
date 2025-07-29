@@ -28,7 +28,6 @@ public class TimingPopup
     
     public TimingPopup(double x,double y,Color color,double windowWidth, String text,DrawCanvas drawCanvas)
     {
-        System.out.println("create popup");
         this.x = x;
         this.y = y-50;
         this.color = color;

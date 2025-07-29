@@ -39,11 +39,7 @@ public class MusicToTextFile
         new FileWriter(textFilePath+songName+".txt", false).close();
         try {
             File newFile = new File(textFilePath+songName+".txt");
-            if (newFile.createNewFile()) {
-                System.out.println("File created: " + newFile.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
+            if (!newFile.createNewFile()) {System.out.println("File created: " + newFile.getName());}      
         } catch (IOException e) {
             e.printStackTrace();
         }

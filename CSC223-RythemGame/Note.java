@@ -13,7 +13,7 @@ public class Note
 {
     public double x;
     public double y;
-    private double width = 200;
+    private double width = 150;
     private double height;
     private Color color;
     
@@ -44,7 +44,7 @@ public class Note
     public void drawNote(Graphics2D g2d)
     {
         if(this.isActive){
-            Ellipse2D.Double note = new Ellipse2D.Double(x,y+=displacementIncrease,width,height);
+            Rectangle2D.Double note = new Rectangle2D.Double(x,y+=displacementIncrease,width,height);
             g2d.setColor(color);
             g2d.fill(note);
 

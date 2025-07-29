@@ -22,7 +22,7 @@ public class DrawCanvas extends JPanel
     private double playerHeight;
     private double playerOffset;
 
-    private double noteHeight = 70;
+    private double noteHeight = 50;
 
     private TimingPopup popup;
 
@@ -79,7 +79,7 @@ public class DrawCanvas extends JPanel
         g2d.setColor(new Color(100,100,200));
         g2d.fill(rectangle);
 
-        Rectangle2D.Double playerRec = new Rectangle2D.Double(0,height-playerHeight-playerOffset,width,playerHeight);
+        Rectangle2D.Double playerRec = new Rectangle2D.Double(0,height-playerHeight/8*4-playerOffset,width,playerHeight/8);
         g2d.setColor(Color.WHITE);
         g2d.fill(playerRec);
 
@@ -111,16 +111,7 @@ public class DrawCanvas extends JPanel
                     Note note = activeNoteList.get(i);
                     noteY = note.y;
                     if(noteY+noteHeight>height-playerHeight-playerOffset){
-                        if(noteY>height-playerHeight-playerOffset&&noteY+noteHeight<height-playerOffset)
-                        {
-                            //System.out.println("perfect");
-                            changeScore(100);
-                            popup.changeText("perfect",Color.GREEN);
-                            note.removeNote();
-                            nonActiveNoteList.add(note);
-                            activeNoteList.remove(note);
-                            activeNoteListSize = activeNoteList.size();
-                        }else if(noteY>height-playerHeight-playerOffset&&noteY<height-playerOffset)
+                        if(noteY>height-playerHeight-playerOffset&&noteY<height-playerOffset&&noteY+noteHeight>height-playerOffset)
                         {
                             //System.out.println("late");
                             changeScore(50);
@@ -129,7 +120,16 @@ public class DrawCanvas extends JPanel
                             nonActiveNoteList.add(note);
                             activeNoteList.remove(note);
                             activeNoteListSize = activeNoteList.size();
-                        }else if(noteY+noteHeight<height-playerOffset)
+                        }else if(noteY>height-playerHeight-playerOffset&&noteY+noteHeight<height-playerOffset)
+                        {
+                            //System.out.println("perfect");
+                            changeScore(100);
+                            popup.changeText("perfect",Color.GREEN);
+                            note.removeNote();
+                            nonActiveNoteList.add(note);
+                            activeNoteList.remove(note);
+                            activeNoteListSize = activeNoteList.size();
+                        }else  if(noteY+noteHeight<height-playerOffset)
                         {
                             //System.out.println("early");
                             changeScore(50);
