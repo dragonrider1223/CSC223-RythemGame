@@ -9,6 +9,12 @@ import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
 import java.util.ArrayList;
+
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+
 public class DrawCanvas extends JPanel
 {
     private int width;
@@ -28,6 +34,9 @@ public class DrawCanvas extends JPanel
 
     private int score;
 
+    //images
+    private BufferedImage playerTriggerImage;
+
     Font myFont = new Font("Arial", Font.BOLD, 100);
 
     public DrawCanvas(int w, int h,double playerh,double playero){
@@ -35,7 +44,7 @@ public class DrawCanvas extends JPanel
         height = h;
         playerHeight = playerh;
         playerOffset = playero;
-        
+
         displacementIncrease = (h-playero-(playerh/2)+noteHeight)/120;
         for(int i = 0;i<noteAmount;i++)
         {
@@ -43,6 +52,13 @@ public class DrawCanvas extends JPanel
             nonActiveNoteList.add(note);
         }
         popup= new TimingPopup(20,height-playerOffset-playerHeight,Color.BLACK,width,"",this);
+
+        playerTriggerImage = null;
+        try {
+            playerTriggerImage = ImageIO.read(new File("sprites/player trigger.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void AddNote()
@@ -79,9 +95,8 @@ public class DrawCanvas extends JPanel
         g2d.setColor(new Color(100,100,200));
         g2d.fill(rectangle);
 
-        Rectangle2D.Double playerRec = new Rectangle2D.Double(0,height-playerHeight/8*4-playerOffset,width,playerHeight/8);
         g2d.setColor(Color.WHITE);
-        g2d.fill(playerRec);
+        g2d.drawImage(playerTriggerImage,0,(int)(height-playerHeight/1.5-playerOffset),width,(int)(playerHeight/2),this);
 
         for(int i=0;i<activeNoteList.size();i++){
             activeNoteList.get(i).drawNote(g2d);
