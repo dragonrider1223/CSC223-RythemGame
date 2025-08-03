@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class Note
 {
+    private int rowAmounts = 3;
+    
     public double x;
     public double y;
     private double width = 100;
@@ -36,7 +38,7 @@ public class Note
 
     public Note(double speed,double x,double y,double height,Color color,double windowHeight, ArrayList list, ArrayList listNonActive, DrawCanvas drawCanvas,boolean isActive)
     {
-        this.x = 25+Math.random()*((windowHeight-width)-25);// the -25 and +25 are for the offset from either edge
+        this.x = (windowHeight/rowAmounts)*(int)(Math.random()*3)+(((windowHeight/rowAmounts)/2)-width/2);// 
         this.y = y-height;
         this.height = height;
         this.color = color;
