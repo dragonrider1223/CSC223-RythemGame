@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Note
-comment1.params=speed\ x\ y\ height\ color\ windowHeight\ list\ listNonActive\ drawCanvas\ isActive
-comment1.target=Note(double,\ double,\ double,\ double,\ java.awt.Color,\ double,\ java.util.ArrayList,\ java.util.ArrayList,\ DrawCanvas,\ boolean)
+comment1.params=speed\ x\ y\ width\ height\ color\ windowHeight\ list\ listNonActive\ drawCanvas\ isActive\ ra
+comment1.target=Note(double,\ double,\ double,\ double,\ double,\ java.awt.Color,\ double,\ java.util.ArrayList,\ java.util.ArrayList,\ DrawCanvas,\ boolean,\ int)
 comment2.params=g2d
 comment2.target=void\ drawNote(java.awt.Graphics2D)
 comment3.params=

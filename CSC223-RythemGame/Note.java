@@ -16,11 +16,11 @@ import java.io.IOException;
 
 public class Note
 {
-    private int rowAmounts = 3;
+    private int rowAmounts;
     
     public double x;
     public double y;
-    private double width = 100;
+    private double width;
     private double height;
     private Color color;
     
@@ -36,10 +36,12 @@ public class Note
     
     private BufferedImage noteImage;
 
-    public Note(double speed,double x,double y,double height,Color color,double windowHeight, ArrayList list, ArrayList listNonActive, DrawCanvas drawCanvas,boolean isActive)
+    public Note(double speed,double x,double y,double width,double height,Color color,double windowHeight, ArrayList list, ArrayList listNonActive, DrawCanvas drawCanvas,boolean isActive, int ra)
     {
+        this.rowAmounts = ra;
         this.x = (windowHeight/rowAmounts)*(int)(Math.random()*3)+(((windowHeight/rowAmounts)/2)-width/2);// 
         this.y = y-height;
+        this.width = width;
         this.height = height;
         this.color = color;
         this.displacementIncrease = speed;

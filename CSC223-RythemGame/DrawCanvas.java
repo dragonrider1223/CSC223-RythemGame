@@ -29,6 +29,9 @@ public class DrawCanvas extends JPanel
     private double playerOffset;
 
     private double noteHeight = 50;
+    private double noteWidth = 100;
+
+    private int rowAmounts = 3;
 
     private TimingPopup popup;
 
@@ -48,7 +51,7 @@ public class DrawCanvas extends JPanel
         displacementIncrease = (h-playero-(playerh/2)+noteHeight)/120;
         for(int i = 0;i<noteAmount;i++)
         {
-            note = new Note(displacementIncrease,width/2,-playerOffset,noteHeight,Color.BLACK,height,activeNoteList,nonActiveNoteList,this,false);
+            note = new Note(displacementIncrease,width/2,-playerOffset,noteWidth,noteHeight,Color.BLACK,height,activeNoteList,nonActiveNoteList,this,false,rowAmounts);
             nonActiveNoteList.add(note);
         }
         popup= new TimingPopup(20,height-playerOffset-playerHeight,Color.BLACK,width,"",this);
@@ -95,6 +98,16 @@ public class DrawCanvas extends JPanel
         g2d.setColor(new Color(100,100,200));
         g2d.fill(rectangle);
 
+        int rowWidth = (int)(noteWidth+40);
+        for(int i = 0;i<rowAmounts;i++){
+            Rectangle2D.Double row = new Rectangle2D.Double(((width/rowAmounts)*i)+(width/rowAmounts)/2-rowWidth/2,0,rowWidth,height);
+            if(i%2==0)
+                g2d.setColor(new Color(100,204,255));
+            else
+                g2d.setColor(new Color(100,153,255));
+            g2d.fill(row);
+        }
+
         g2d.setColor(Color.WHITE);
         g2d.drawImage(playerTriggerImage,0,(int)(height-playerHeight/1.5-playerOffset),width,(int)(playerHeight/2),this);
 
@@ -135,6 +148,7 @@ public class DrawCanvas extends JPanel
                             nonActiveNoteList.add(note);
                             activeNoteList.remove(note);
                             activeNoteListSize = activeNoteList.size();
+                            break; 
                         }else if(noteY>height-playerHeight-playerOffset&&noteY+noteHeight<height-playerOffset)
                         {
                             //System.out.println("perfect");
@@ -144,6 +158,7 @@ public class DrawCanvas extends JPanel
                             nonActiveNoteList.add(note);
                             activeNoteList.remove(note);
                             activeNoteListSize = activeNoteList.size();
+                            break; 
                         }else  if(noteY+noteHeight<height-playerOffset)
                         {
                             //System.out.println("early");
@@ -153,6 +168,7 @@ public class DrawCanvas extends JPanel
                             nonActiveNoteList.add(note);
                             activeNoteList.remove(note);
                             activeNoteListSize = activeNoteList.size();
+                            break; 
                         }
                     }
                 }
