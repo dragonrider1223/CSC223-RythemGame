@@ -44,6 +44,11 @@ public class MusicToTextFile
             e.printStackTrace();
         }
         
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(textFilePath+songName+".txt", true))){
+            writer.write("1");
+            writer.newLine();
+        }catch(IOException e){}
+        
         int previosMsTime = 0;
         
         while ((bytesRead = audioInputStream.read(buffer))!=-1)

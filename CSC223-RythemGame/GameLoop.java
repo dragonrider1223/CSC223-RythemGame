@@ -151,7 +151,7 @@ public class GameLoop
         NoteSpawnTimer();
         try
         {
-            Thread.sleep(128*16);
+            Thread.sleep(100*16);
         }
         catch (InterruptedException ie)
         {
