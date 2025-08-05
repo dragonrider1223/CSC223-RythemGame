@@ -35,9 +35,16 @@ public class GameLoop
     private String filePath = "SongTextFiles/";
     private String fileName;
 
+    private ArrayList<Button> buttons = new ArrayList<Button>();
+
+    private boolean loop = true;
+
     public GameLoop()
     {
         Scanner input = new Scanner(System.in);
+
+        // initially creat the window
+        GameWindow.createGameWindow();
 
         File songFolder = new File("Songs/");
         File[] songFiles = songFolder.listFiles();
@@ -50,7 +57,7 @@ public class GameLoop
         }
         File folder = new File(filePath);
         File[] files = folder.listFiles();
-        
+
         for(File file : files)
         {
             if(file.isFile() && file.getName().endsWith(".txt"))
@@ -61,16 +68,16 @@ public class GameLoop
                     {
                         fileToRemove=i;
                     }
-                    }
-                
+                }
+
                 if(fileToRemove>=0)
                     songList.remove(fileToRemove);
-                
+
                 fileToRemove = -1;
                 fileList.add(file.getName());
             }
         }
-        
+
         for(int i = 0;i<songList.size();i++){
             try
             {
@@ -83,34 +90,38 @@ public class GameLoop
             }
         }
 
-        boolean loop = true;
         int fileSelected = 0;
+        int buttonHeight;
+        int buttonX = 20;
+        int index = 0;
 
-        while(loop)
+        System.out.println("what song would you like to play?");
+        System.out.println();
+        for(int i = 0;i<fileList.size();i++)
         {
-            System.out.println("what song would you like to play?");
-            System.out.println();
-            for(int i = 0;i<fileList.size();i++)
-            {
-                System.out.println((i+1)+". "+fileList.get(i).replace(".txt",""));
+            buttonHeight = (100+20)*index+20;
+            if(buttonHeight+100 > windowSize){
+                buttonHeight = 20;
+                index = 0;
+                buttonX += 250+20;
             }
-            String temp = input.nextLine();
-            fileSelected = 0;
-            try{
-                fileSelected = Integer.parseInt(temp);
-            }catch(NumberFormatException e){
-                System.out.println("that is not an int");
-            }
-
-            if(fileSelected>0&&fileSelected<fileList.size()+1)
-            {
-                fileName = fileList.get(fileSelected-1);
-                loop = false;
-            }else{System.out.println("Invalid input please try again");}
-
+            System.out.println((i+1)+". "+fileList.get(i).replace(".txt",""));
+            buttons.add(new Button(buttonX, buttonHeight,100,GameWindow,(i+1)+". "+fileList.get(i).replace(".txt",""),i,this));
+            index++;
         }
-        // initially creat the window
-        GameWindow.createGameWindow();
+
+        
+        //this is here to make sure the timer and the notes dont desync instead of it being in a later function
+        while(loop){
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch (InterruptedException ie)
+            {
+                ie.printStackTrace();
+            }
+        }
 
         try {
             File file = new File(filePath+fileName);
@@ -141,6 +152,14 @@ public class GameLoop
         {
             ioe.printStackTrace();
         }
+    }
+
+    public void endLoop(int chosenSong)
+    {
+        for(int i = 0;i<buttons.size();i++)
+            buttons.get(i).remove();
+        fileName = fileList.get(chosenSong);
+        loop = false;
     }
 
     public void playSong(String songFile) throws java.io.IOException {
