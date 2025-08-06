@@ -1,5 +1,5 @@
 #BlueJ class context
 comment0.target=MusicToTextFile
-comment1.params=songName\ textFilePath
-comment1.target=void\ convertSong(java.lang.String,\ java.lang.String)
+comment1.params=songName\ textFilePath\ dc
+comment1.target=void\ convertSong(java.lang.String,\ java.lang.String,\ DrawCanvas)
 numComments=2

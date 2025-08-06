@@ -39,7 +39,7 @@ public class Note
     public Note(double speed,double x,double y,double width,double height,Color color,double windowHeight, ArrayList list, ArrayList listNonActive, DrawCanvas drawCanvas,boolean isActive, int ra)
     {
         this.rowAmounts = ra;
-        this.x = (windowHeight/rowAmounts)*(int)(Math.random()*3)+(((windowHeight/rowAmounts)/2)-width/2);// 
+        this.x = (windowHeight/rowAmounts)*(int)(Math.random()*rowAmounts)+(((windowHeight/rowAmounts)/2)-width/2);// 
         this.y = y-height;
         this.width = width;
         this.height = height;

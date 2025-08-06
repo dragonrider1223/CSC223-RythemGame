@@ -81,7 +81,7 @@ public class GameLoop
         for(int i = 0;i<songList.size();i++){
             try
             {
-                converter.convertSong(songList.get(i).replace(".wav",""),filePath);
+                converter.convertSong(songList.get(i).replace(".wav",""),filePath,dc);
                 fileList.add(songList.get(i).replace(".wav",".txt"));
             }
             catch (Exception e)
@@ -115,7 +115,7 @@ public class GameLoop
         while(loop){
             try
             {
-                Thread.sleep(100);
+                Thread.sleep(10);
             }
             catch (InterruptedException ie)
             {
@@ -170,7 +170,7 @@ public class GameLoop
         NoteSpawnTimer();
         try
         {
-            Thread.sleep(100*16);
+            Thread.sleep(110*16);
         }
         catch (InterruptedException ie)
         {

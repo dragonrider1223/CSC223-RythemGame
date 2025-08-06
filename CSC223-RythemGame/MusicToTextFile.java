@@ -16,9 +16,13 @@ public class MusicToTextFile
     String songPath = "Songs/";
 
     int frameSize = 512;
+    DrawCanvas dc;
     
-    public void convertSong(String songName,String textFilePath) throws Exception
+    public void convertSong(String songName,String textFilePath,DrawCanvas dc) throws Exception
     {
+        this.dc = dc;
+        dc.SetLoading(true);
+        
         File audioFile = new File(songPath+songName+".wav");
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
         AudioFormat format = audioInputStream.getFormat();
@@ -84,6 +88,7 @@ public class MusicToTextFile
             previosSampleEnergy = energy;
             frameIndex++;
         }
+        dc.SetLoading(false);
 
     }   
 }

@@ -63,6 +63,12 @@ public class DrawCanvas extends JPanel
             e.printStackTrace();
         }
     }
+    
+    public void SetLoading(boolean enabled)
+    {
+        System.out.println("loading new song");
+        RedrawCanvas();
+    }
 
     public void AddNote()
     {

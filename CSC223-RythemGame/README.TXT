@@ -1,12 +1,7 @@
-------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all they need to know. The comments should usually include at least:
-------------------------------------------------------------------------
 
-PROJECT TITLE:
-PURPOSE OF PROJECT:
+PROJECT TITLE: Procedural rhythm game
+PURPOSE OF PROJECT: a rhythm game that makes songs based off of wav files
 VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
-USER INSTRUCTIONS:
+HOW TO START THIS PROJECT: open blue J and run the GAMELOOP class
+AUTHORS: Joshua wolf
+USER INSTRUCTIONS: To import a song, drag a wav file into the songs folder and run the game. To regenerate a song, delete the corresponding "song name".txt file. To manually edit the song, change the values in the "song name".txt file, the numbers represent the time between notes in milliseconds
