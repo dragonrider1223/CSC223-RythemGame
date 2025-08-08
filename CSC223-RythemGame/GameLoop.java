@@ -37,15 +37,63 @@ public class GameLoop
 
     private ArrayList<Button> buttons = new ArrayList<Button>();
 
+    private Button escapeButton;
+
     private boolean loop = true;
 
+    private boolean stop;
+
+    private Clip song;
+
+    private Timer redrawTimer;
+    private Timer noteTimerObject;
+
     public GameLoop()
+    {
+
+    }
+
+    public void game()
     {
         Scanner input = new Scanner(System.in);
 
         // initially creat the window
         GameWindow.createGameWindow();
 
+        //sets up the game
+        restartGame();
+    }
+
+    public void restartGame()
+    {
+        if (escapeButton != null)
+            escapeButton.remove();
+
+        // Cancels timers
+        if (redrawTimer != null) redrawTimer.cancel();
+        if (noteTimerObject != null) noteTimerObject.cancel();
+
+        // Stops and closes song
+        if (song != null) {
+            if (song.isRunning()) song.stop();
+            song.close();
+        }
+
+        // Resets game state
+        stop = true;
+        loop = true;
+        noteIndex = 0;
+        noteList.clear();
+        songList.clear();
+        fileList.clear();
+        
+        //Resets the drawing canvas and notes
+        dc.reset();
+
+        for (Button b : buttons)
+            b.remove();
+        buttons.clear();
+        
         File songFolder = new File("Songs/");
         File[] songFiles = songFolder.listFiles();
         for(File file : songFiles)
@@ -106,11 +154,10 @@ public class GameLoop
                 buttonX += 250+20;
             }
             System.out.println((i+1)+". "+fileList.get(i).replace(".txt",""));
-            buttons.add(new Button(buttonX, buttonHeight,100,GameWindow,(i+1)+". "+fileList.get(i).replace(".txt",""),i,this));
+            buttons.add(new Button(buttonX, buttonHeight,100,GameWindow,(i+1)+". "+fileList.get(i).replace(".txt",""),i,this,true));
             index++;
         }
 
-        
         //this is here to make sure the timer and the notes dont desync instead of it being in a later function
         while(loop){
             try
@@ -122,6 +169,8 @@ public class GameLoop
                 ie.printStackTrace();
             }
         }
+
+        stop = false;
 
         try {
             File file = new File(filePath+fileName);
@@ -141,6 +190,11 @@ public class GameLoop
                 @Override
                 public void run () {
                     dc.RedrawCanvas();
+                    if(stop)
+                    {
+                        System.out.println("canceld");
+                        this.cancel();
+                    }
                 }
             }, 0, 16);
 
@@ -158,26 +212,32 @@ public class GameLoop
     {
         for(int i = 0;i<buttons.size();i++)
             buttons.get(i).remove();
+        escapeButton = new Button(0, 100,100,GameWindow,"back to menu",0,this,false);
         fileName = fileList.get(chosenSong);
         loop = false;
     }
 
     public void playSong(String songFile) throws java.io.IOException {
         File audioFile = new File(songFile);
-        Clip song = loadSong(songFile);
-        if( song.isRunning() ) song.stop();
+        if (song != null) {
+            if (song.isRunning()) song.stop();
+            song.close();
+        }
+        song = loadSong(songFile);
 
-        NoteSpawnTimer();
+        startNoteSpawnTimer();
         try
         {
-            Thread.sleep(110*16);
+            Thread.sleep((int)(5.625*240));
         }
         catch (InterruptedException ie)
         {
             ie.printStackTrace();
         }
-        song.setFramePosition( 0 );
-        song.start();
+        if(!stop){
+            song.setFramePosition( 0 );
+            song.start();
+        }
 
     }
 
@@ -196,24 +256,31 @@ public class GameLoop
         return(in);
     }
 
-    private void NoteSpawnTimer()
-    {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
+    private void startNoteSpawnTimer() {
+        if (noteTimerObject != null) {
+            noteTimerObject.cancel(); // Cancel any existing timer
+        }
+
+        noteTimerObject = new Timer();
+        scheduleNextNote(); // Start the first task
+    }
+
+    private void scheduleNextNote() {
+        if (noteIndex >= noteList.size()) {
+            return; // No more notes
+        }
+
+        long delay = noteList.get(noteIndex);
+
+        noteTimerObject.schedule(new TimerTask() {
                 @Override
-                public void run () {
-                    dc.AddNote();
+                public void run() {
+                    dc.AddNote(); // Spawn a note on screen
                     noteIndex++;
-                    if(noteIndex<noteList.size())
-                        noteTimer = noteList.get(noteIndex);
-                    timer.cancel();
-                    //System.out.println("time until next note : "+noteTimer);
-                    NoteSpawnTimer();
-
+                    if (noteIndex < noteList.size()) {
+                        scheduleNextNote(); // Schedule the next note
+                    }
                 }
-            };
-        if(noteIndex<noteList.size())
-            timer.schedule(task,noteTimer,noteTimer);
-
+            }, delay);
     }
 }

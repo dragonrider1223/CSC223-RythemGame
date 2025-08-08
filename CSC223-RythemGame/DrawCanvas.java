@@ -48,7 +48,8 @@ public class DrawCanvas extends JPanel
         playerHeight = playerh;
         playerOffset = playero;
 
-        displacementIncrease = (h-playero-(playerh/2)+noteHeight)/120;
+        displacementIncrease = (h-playero-(playerh/2)+noteHeight/2)/120;
+        System.out.println(displacementIncrease);
         for(int i = 0;i<noteAmount;i++)
         {
             note = new Note(displacementIncrease,width/2,-playerOffset,noteWidth,noteHeight,Color.BLACK,height,activeNoteList,nonActiveNoteList,this,false,rowAmounts);
@@ -61,6 +62,17 @@ public class DrawCanvas extends JPanel
             playerTriggerImage = ImageIO.read(new File("sprites/player trigger.png"));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public void reset()
+    {
+        nonActiveNoteList.clear();
+        activeNoteList.clear();
+        for(int i = 0;i<noteAmount;i++)
+        {
+            note = new Note(displacementIncrease,width/2,-playerOffset,noteWidth,noteHeight,Color.BLACK,height,activeNoteList,nonActiveNoteList,this,false,rowAmounts);
+            nonActiveNoteList.add(note);
         }
     }
     
