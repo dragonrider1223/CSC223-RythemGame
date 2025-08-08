@@ -145,6 +145,7 @@ public class DrawCanvas extends JPanel
     public void RedrawCanvas()
     {
         repaint();
+        this.revalidate();
     }
 
     public void checkNotes()

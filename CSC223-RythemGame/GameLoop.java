@@ -154,7 +154,7 @@ public class GameLoop
                 buttonX += 250+20;
             }
             System.out.println((i+1)+". "+fileList.get(i).replace(".txt",""));
-            buttons.add(new Button(buttonX, buttonHeight,100,GameWindow,(i+1)+". "+fileList.get(i).replace(".txt",""),i,this,true));
+            buttons.add(new Button(buttonX, buttonHeight,100,GameWindow,(i+1)+". "+fileList.get(i).replace(".txt",""),i,this,dc,true));
             index++;
         }
 
@@ -212,7 +212,7 @@ public class GameLoop
     {
         for(int i = 0;i<buttons.size();i++)
             buttons.get(i).remove();
-        escapeButton = new Button(0, 100,100,GameWindow,"back to menu",0,this,false);
+        escapeButton = new Button(25, 125,50,GameWindow,"back to menu",0,this,dc,false);
         fileName = fileList.get(chosenSong);
         loop = false;
     }
@@ -228,7 +228,7 @@ public class GameLoop
         startNoteSpawnTimer();
         try
         {
-            Thread.sleep((int)(5.625*240));
+            Thread.sleep((int)(5.625*300));
         }
         catch (InterruptedException ie)
         {

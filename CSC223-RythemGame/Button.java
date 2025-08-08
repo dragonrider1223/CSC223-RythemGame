@@ -19,12 +19,15 @@ public class Button extends JFrame implements ActionListener
     private int fileSelected;
     GameWindow window;
     private boolean levelButton;
+    private DrawCanvas dc;
 
-    public Button(int x, int y,int height,GameWindow window,String text,int file,GameLoop gl,boolean levelButton)
+    public Button(int x, int y,int height,GameWindow window,String text,int file,GameLoop gl,DrawCanvas dc,boolean levelButton)
     {
         this.fileSelected = file;
         this.height = height;
         this.gl = gl;
+        
+        this.dc = dc;
 
         this.levelButton = levelButton;
 
@@ -36,12 +39,12 @@ public class Button extends JFrame implements ActionListener
         this.button.setFocusable(false);
         this.button.addActionListener(this);
 
-        this.window.add(button);
-        this.window.setLayout(null);
+        this.dc.add(button);
+        this.dc.setLayout(null);
         this.button.setVisible(true);
 
-        this.window.repaint();
-        this.window.revalidate();
+        this.dc.repaint();
+        this.dc.revalidate();
     }
 
     public void actionPerformed(ActionEvent e){
@@ -60,6 +63,6 @@ public class Button extends JFrame implements ActionListener
 
     public void remove()
     {
-        window.remove(button);
+        dc.remove(button);
     }
 }

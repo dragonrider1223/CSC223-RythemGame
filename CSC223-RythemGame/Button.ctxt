@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Button
-comment1.params=x\ y\ height\ window\ text\ file\ gl\ levelButton
-comment1.target=Button(int,\ int,\ int,\ GameWindow,\ java.lang.String,\ int,\ GameLoop,\ boolean)
+comment1.params=x\ y\ height\ window\ text\ file\ gl\ dc\ levelButton
+comment1.target=Button(int,\ int,\ int,\ GameWindow,\ java.lang.String,\ int,\ GameLoop,\ DrawCanvas,\ boolean)
 comment2.params=e
 comment2.target=void\ actionPerformed(java.awt.event.ActionEvent)
 comment3.params=
