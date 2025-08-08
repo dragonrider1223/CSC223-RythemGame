@@ -86,14 +86,14 @@ public class GameLoop
         noteList.clear();
         songList.clear();
         fileList.clear();
-        
+
         //Resets the drawing canvas and notes
         dc.reset();
 
         for (Button b : buttons)
             b.remove();
         buttons.clear();
-        
+
         File songFolder = new File("Songs/");
         File[] songFiles = songFolder.listFiles();
         for(File file : songFiles)
@@ -267,7 +267,7 @@ public class GameLoop
 
     private void scheduleNextNote() {
         if (noteIndex >= noteList.size()) {
-            return; // No more notes
+            return; // No more notes in index
         }
 
         long delay = noteList.get(noteIndex);
@@ -279,8 +279,22 @@ public class GameLoop
                     noteIndex++;
                     if (noteIndex < noteList.size()) {
                         scheduleNextNote(); // Schedule the next note
-                    }
+                    }else{end();}
                 }
             }, delay);
     }
+
+    private void end()
+    {
+        try
+        {
+            Thread.sleep(5000);
+        }
+        catch (InterruptedException ie)
+        {
+            ie.printStackTrace();
+        }
+        restartGame();
+    }
 }
+
