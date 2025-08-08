@@ -67,6 +67,7 @@ public class DrawCanvas extends JPanel
     
     public void reset()
     {
+        changeScore(-999999999);
         nonActiveNoteList.clear();
         activeNoteList.clear();
         for(int i = 0;i<noteAmount;i++)
