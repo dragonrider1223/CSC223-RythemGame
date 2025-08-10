@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=StartGame
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ StartGame\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ has\ the\ main\ function\ to\ be\ called\ at\ the\ start\ and\ starts\ the\ gameplay\ loop\r\n\r\n\ @Joshua\ wolf\r\n\ Version\:\ 1\r\n
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 numComments=2

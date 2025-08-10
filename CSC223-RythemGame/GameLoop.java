@@ -1,9 +1,9 @@
 
 /**
- * Creates handles all of the timigns of frames and is the starting class
+ * Creates and sets up the game window and main gameplay loop
  *
  * @Joshua wolf
- * @version 1.2
+ * @version 1.3
  */
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,22 +48,19 @@ public class GameLoop
     private Timer redrawTimer;
     private Timer noteTimerObject;
 
-    public GameLoop()
-    {
-
-    }
-
+    //This is the functions that initialy creates and sets up the game, its called from the start game class
     public void game()
     {
         Scanner input = new Scanner(System.in);
 
-        // initially creat the window
+        // initially creats the window
         GameWindow.createGameWindow();
 
-        //sets up the game
+        //sets up and restarts the game and its variables
         restartGame();
     }
 
+    //restarts all the games variables, and reopens the menu
     public void restartGame()
     {
         if (escapeButton != null)
@@ -94,6 +91,7 @@ public class GameLoop
             b.remove();
         buttons.clear();
 
+        //checks the songs in the songs/ directory and adds them to the songList
         File songFolder = new File("Songs/");
         File[] songFiles = songFolder.listFiles();
         for(File file : songFiles)
@@ -105,7 +103,8 @@ public class GameLoop
         }
         File folder = new File(filePath);
         File[] files = folder.listFiles();
-
+        
+        //checks if the song file ahs a matching txt file, and if it does removes it from the songList
         for(File file : files)
         {
             if(file.isFile() && file.getName().endsWith(".txt"))
@@ -125,7 +124,8 @@ public class GameLoop
                 fileList.add(file.getName());
             }
         }
-
+        
+        //creates the txt file for any missing songs that are left in the songList 
         for(int i = 0;i<songList.size();i++){
             try
             {
@@ -143,8 +143,7 @@ public class GameLoop
         int buttonX = 20;
         int index = 0;
 
-        System.out.println("what song would you like to play?");
-        System.out.println();
+        //adds a menu button for each song txt file, it moves them acordingly
         for(int i = 0;i<fileList.size();i++)
         {
             buttonHeight = (100+20)*index+20;
@@ -153,7 +152,6 @@ public class GameLoop
                 index = 0;
                 buttonX += 250+20;
             }
-            System.out.println((i+1)+". "+fileList.get(i).replace(".txt",""));
             buttons.add(new Button(buttonX, buttonHeight,100,GameWindow,(i+1)+". "+fileList.get(i).replace(".txt",""),i,this,dc,true));
             index++;
         }
@@ -172,6 +170,7 @@ public class GameLoop
 
         stop = false;
 
+        //reads the note timings off the file and adds them to a note list
         try {
             File file = new File(filePath+fileName);
             Scanner myReader = new Scanner(file);
@@ -180,11 +179,12 @@ public class GameLoop
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("Error with the song.txt file, cant create notes");
             e.printStackTrace();
         }
         noteTimer = noteList.get(0);
 
+        // redraws the canvas every 16 milleseconds unless it gets stoped
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -192,7 +192,6 @@ public class GameLoop
                     dc.RedrawCanvas();
                     if(stop)
                     {
-                        System.out.println("canceld");
                         this.cancel();
                     }
                 }
@@ -208,6 +207,7 @@ public class GameLoop
         }
     }
 
+    //stops the pause loop and starts the game, this happens from the menu buttons
     public void endLoop(int chosenSong)
     {
         for(int i = 0;i<buttons.size();i++)
@@ -217,6 +217,7 @@ public class GameLoop
         loop = false;
     }
 
+    //plays the .wav file of the song it gets told when the first note reached the player
     public void playSong(String songFile) throws java.io.IOException {
         File audioFile = new File(songFile);
         if (song != null) {
@@ -241,6 +242,7 @@ public class GameLoop
 
     }
 
+    //loads the song prior to it being played
     private Clip loadSong(String songFile)
     {
         Clip in = null;
@@ -256,6 +258,7 @@ public class GameLoop
         return(in);
     }
 
+    //starts the note spawning system
     private void startNoteSpawnTimer() {
         if (noteTimerObject != null) {
             noteTimerObject.cancel(); // Cancel any existing timer
@@ -265,6 +268,7 @@ public class GameLoop
         scheduleNextNote(); // Start the first task
     }
 
+    //schedules next note to spawn and calls end function when there are non left
     private void scheduleNextNote() {
         if (noteIndex >= noteList.size()) {
             return; // No more notes in index
@@ -284,6 +288,7 @@ public class GameLoop
             }, delay);
     }
 
+    //waits 5 seconds before going back to the main menu after song completion
     private void end()
     {
         try

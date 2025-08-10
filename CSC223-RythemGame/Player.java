@@ -13,7 +13,7 @@ public class Player implements KeyListener
     DrawCanvas dc;
     boolean released;
     
-    
+    //sets up the connection with the drawCanvas class
     public Player(DrawCanvas drawCanvas)
     {
         dc = drawCanvas;
@@ -21,18 +21,21 @@ public class Player implements KeyListener
     }
     
     public void keyTyped(KeyEvent e){}  
+    //if key released sets released to true
     public void keyReleased(KeyEvent e)
     {
         released = true;
     }  
+    
+    //when key pressed calls check notes and sets released to false to prevent button holding
     public void keyPressed(KeyEvent e){
-        //System.out.println("You pressed key char: "+e.getKeyChar());
         if(released){
             released = false;
             checkNotes();
         }
     }  
     
+    //checks the notes if they are in the correct height
     public void checkNotes()
     {
         dc.checkNotes();

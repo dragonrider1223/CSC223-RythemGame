@@ -25,6 +25,7 @@ public class GameWindow extends JFrame
     DrawCanvas dc;
     Player player;
     
+    //gets and sets necesary variables
     public GameWindow(int windowSize, DrawCanvas DrawCanvas, Player thePlayer)
     {
         wSize = windowSize;

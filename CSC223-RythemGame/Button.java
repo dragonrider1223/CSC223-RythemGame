@@ -1,6 +1,6 @@
 
 /**
- * This class handels all buttons in the game
+ * This class handels all buttons in the game (main menu and back to menu buttons)
  *
  * @Joshua wolf
  */
@@ -21,6 +21,7 @@ public class Button extends JFrame implements ActionListener
     private boolean levelButton;
     private DrawCanvas dc;
 
+    //initializes the button and creates the button to the specifications given
     public Button(int x, int y,int height,GameWindow window,String text,int file,GameLoop gl,DrawCanvas dc,boolean levelButton)
     {
         this.fileSelected = file;
@@ -47,6 +48,7 @@ public class Button extends JFrame implements ActionListener
         this.dc.revalidate();
     }
 
+    //when pressed either starts a level or returns to the main menu
     public void actionPerformed(ActionEvent e){
         if (levelButton) {
             gl.endLoop(fileSelected);
@@ -61,6 +63,7 @@ public class Button extends JFrame implements ActionListener
         }
     }
 
+    //removes this button, often called from the restart game function
     public void remove()
     {
         dc.remove(button);

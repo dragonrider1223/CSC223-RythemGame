@@ -2,8 +2,8 @@
 /**
  * Write a description of class MusicToTextFile here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * Joshua wolf
+ * v2
  */
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -18,6 +18,7 @@ public class MusicToTextFile
     int frameSize = 512;
     DrawCanvas dc;
     
+    //converts the song wav into a txt file using its energy volume at each sample
     public void convertSong(String songName,String textFilePath,DrawCanvas dc) throws Exception
     {
         this.dc = dc;
@@ -48,6 +49,7 @@ public class MusicToTextFile
             e.printStackTrace();
         }
         
+        //adds a note to the start of each song
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(textFilePath+songName+".txt", true))){
             writer.write("1");
             writer.newLine();
@@ -55,6 +57,7 @@ public class MusicToTextFile
         
         int previosMsTime = 0;
         
+        //while the song has
         while ((bytesRead = audioInputStream.read(buffer))!=-1)
         {
             double energy = 0;
@@ -69,10 +72,10 @@ public class MusicToTextFile
             }
             energy = energy / (bytesRead / 2);
             
+            //checks if the energy difference between samples is large enough and notes the millesecond time between the previous note
             if (energy > previosSampleEnergy * energyThreshold && (energy - previosSampleEnergy) > energySensetivity) {
                 long timestampMs = (long) ((frameIndex * frameSize / bytesPerFrame) * 1000.0 / sampleRate)-previousTimeStamp;
                 previousTimeStamp += timestampMs;
-                //System.out.println("Likely beat detected at: " + timestampMs + " ms");
                 
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(textFilePath+songName+".txt", true))) {
                     if (timestampMs > 100)

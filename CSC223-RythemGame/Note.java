@@ -36,6 +36,7 @@ public class Note
     
     private BufferedImage noteImage;
 
+    //sets up all variables of the note
     public Note(double speed,double x,double y,double width,double height,Color color,double windowHeight, ArrayList list, ArrayList listNonActive, DrawCanvas drawCanvas,boolean isActive, int ra)
     {
         this.rowAmounts = ra;
@@ -59,6 +60,7 @@ public class Note
         }
     }
 
+    //draws the note to the canvas in draw canvas
     public void drawNote(Graphics2D g2d)
     {
         if(this.isActive){
@@ -74,12 +76,14 @@ public class Note
         }
     }
 
+    //removes the note and makes it not visible and resets its height for the object pooling
     public void removeNote()
     {
         isActive = false;
         this.y=0-height;
     }
     
+    //activates the note
     public void setActive()
     {
         isActive = true;

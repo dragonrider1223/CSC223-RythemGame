@@ -1,9 +1,9 @@
 
 /**
- * creates and destroys note that moves down at a constant rate
+ * changes the text of the popup telling you how well you did
  *
  * @Joshua wolf
- * @version 1.2
+ * @version 1.3
  */
 import java.awt.*;
 import java.awt.geom.*;
@@ -26,6 +26,7 @@ public class TimingPopup
 
     Font myFont = new Font("Arial", Font.BOLD, 100);
     
+    //sets up necesary variables
     public TimingPopup(double x,double y,Color color,double windowWidth, String text,DrawCanvas drawCanvas)
     {
         this.x = x;
@@ -35,6 +36,7 @@ public class TimingPopup
         this.dc = drawCanvas;
     }
 
+    //draws the popup with a ever decreasing alpha to make it fade out
     public void drawPopup(Graphics2D g2d)
     {
         
@@ -44,10 +46,9 @@ public class TimingPopup
             g2d.setColor(new Color(color.getRed(),color.getGreen(),color.getBlue(),alpha));
             g2d.drawString(text,(float)x,(float)y); 
         }
-        //g2d.drawString(text,(float)x,(float)y);  
-
     }
 
+    //gets called to change the text and color of the popup and makes its alpha fully visible again
     public void changeText(String newText,Color newColor)
     {
         alpha = 255;

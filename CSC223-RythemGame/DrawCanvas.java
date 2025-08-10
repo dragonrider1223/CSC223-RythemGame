@@ -1,6 +1,6 @@
 
 /**
- * Draws the images needed
+ * Sets up the canvas and draws the images every frame as well as handles note logic
  *
  * @Joshua wolf
  * @version 1.2
@@ -37,11 +37,12 @@ public class DrawCanvas extends JPanel
 
     private int score;
 
-    //images
+    //imagess
     private BufferedImage playerTriggerImage;
 
     Font myFont = new Font("Arial", Font.BOLD, 100);
 
+    //Sets up necessary variables
     public DrawCanvas(int w, int h,double playerh,double playero){
         width = w;
         height = h;
@@ -65,6 +66,7 @@ public class DrawCanvas extends JPanel
         }
     }
     
+    //resets the notes and the score
     public void reset()
     {
         changeScore(-999999999);
@@ -77,15 +79,16 @@ public class DrawCanvas extends JPanel
         }
     }
     
+    //shows and hides the loading text
     public void SetLoading(boolean enabled)
     {
         System.out.println("loading new song");
         RedrawCanvas();
     }
 
+    //activates a note and moves it to a seperate list
     public void AddNote()
     {
-        //note = new Note(displacementIncrease,width/2,-playerOffset,noteHeight,Color.BLACK,height,activeNoteList,this);
         Note noteToBeMoved = null;
         for(Note note : nonActiveNoteList)
         {
@@ -102,6 +105,7 @@ public class DrawCanvas extends JPanel
         }
     }
 
+    //paints the canvas
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -113,10 +117,12 @@ public class DrawCanvas extends JPanel
 
         g2d.setRenderingHints(rh);
 
+        //sets the bg to blue
         Rectangle2D.Double rectangle = new Rectangle2D.Double(0,0,width,height);
         g2d.setColor(new Color(100,100,200));
         g2d.fill(rectangle);
 
+        //draws rows behind the notes
         int rowWidth = (int)(noteWidth+40);
         for(int i = 0;i<rowAmounts;i++){
             Rectangle2D.Double row = new Rectangle2D.Double(((width/rowAmounts)*i)+(width/rowAmounts)/2-rowWidth/2,0,rowWidth,height);
@@ -127,27 +133,33 @@ public class DrawCanvas extends JPanel
             g2d.fill(row);
         }
 
+        //draws the "player" trigger
         g2d.setColor(Color.WHITE);
         g2d.drawImage(playerTriggerImage,0,(int)(height-playerHeight/1.5-playerOffset),width,(int)(playerHeight/2),this);
 
+        //draws the notes that are active
         for(int i=0;i<activeNoteList.size();i++){
             activeNoteList.get(i).drawNote(g2d);
         }
 
+        //draws score
         g2d.setFont(myFont);
         g2d.setColor(Color.GREEN);
         g2d.drawString("Score: "+Integer.toString(score),10, 100); 
 
+        //draws skill popup
         popup.drawPopup(g2d);
 
     }
 
+    //repaints the canvas and revalidates it
     public void RedrawCanvas()
     {
         repaint();
         this.revalidate();
     }
 
+    //checks all active notes if they are in the players box
     public void checkNotes()
     {
         int startingNoteListSize = activeNoteList.size();
@@ -161,7 +173,6 @@ public class DrawCanvas extends JPanel
                     if(noteY+noteHeight>height-playerHeight-playerOffset){
                         if(noteY>height-playerHeight-playerOffset&&noteY<height-playerOffset&&noteY+noteHeight>height-playerOffset)
                         {
-                            //System.out.println("late");
                             changeScore(50);
                             popup.changeText("late",Color.ORANGE);
                             note.removeNote();
@@ -171,7 +182,6 @@ public class DrawCanvas extends JPanel
                             break; 
                         }else if(noteY>height-playerHeight-playerOffset&&noteY+noteHeight<height-playerOffset)
                         {
-                            //System.out.println("perfect");
                             changeScore(100);
                             popup.changeText("perfect",Color.GREEN);
                             note.removeNote();
@@ -181,7 +191,6 @@ public class DrawCanvas extends JPanel
                             break; 
                         }else  if(noteY+noteHeight<height-playerOffset)
                         {
-                            //System.out.println("early");
                             changeScore(50);
                             popup.changeText("early",Color.YELLOW);
                             note.removeNote();
@@ -197,12 +206,11 @@ public class DrawCanvas extends JPanel
         }
         if(activeNoteList.size()==startingNoteListSize)
         {
-            //System.out.println("miss");
             changeScore(-100);
-
         }
     }
 
+    //changes the score and sends miss if change in score is negative
     public void changeScore(int scoreChange)
     {
         if (score+scoreChange>=0)
