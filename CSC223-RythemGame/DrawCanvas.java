@@ -50,7 +50,6 @@ public class DrawCanvas extends JPanel
         playerOffset = playero;
 
         displacementIncrease = (h-playero-(playerh/2)+noteHeight/2)/120;
-        System.out.println(displacementIncrease);
         for(int i = 0;i<noteAmount;i++)
         {
             note = new Note(displacementIncrease,width/2,-playerOffset,noteWidth,noteHeight,Color.BLACK,height,activeNoteList,nonActiveNoteList,this,false,rowAmounts);
@@ -221,6 +220,5 @@ public class DrawCanvas extends JPanel
         {
             popup.changeText("miss",Color.RED);
         }
-        //System.out.println(score);
     }
 }

@@ -229,7 +229,7 @@ public class GameLoop
         startNoteSpawnTimer();
         try
         {
-            Thread.sleep((int)(5.625*300));
+            Thread.sleep((int)(16*100));
         }
         catch (InterruptedException ie)
         {
